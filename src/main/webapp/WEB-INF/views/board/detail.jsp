@@ -44,7 +44,10 @@
 	                  <div class="col-12 align-self-center">
 	                    <div class="main-info header-text">
 	                      <span>${board} Detail</span>
-	                      <h4>${boardDTO.board_Title}</h4>
+	                      <h2>${boardDTO.board_Title}</h2>
+	                      
+	                     <p><strong>작성자:&nbsp;</strong>${boardDTO.member_Nick} &nbsp;<strong>&nbsp;작성일자: &nbsp;</strong> ${boardDTO.board_Date}</p>
+						 <br>
 
 						  <c:forEach items="${boardDTO.fileDTOs}" var="f">
 							<div class="col-lg-4">
@@ -52,9 +55,10 @@
 								<!--  <a href="/resources/upload/${board}/${f.file_Name}">${f.ori_Name}</a> -->
 								<img src ="/resources/upload/${kind}/${f.file_Name}" onerror="this.style.display='none'" style="display: flex; flex-direction: column;">
 							</div>
-							</c:forEach>
+							
+						 </c:forEach>
 							<c:catch>
-							<c:if test="${not empty boardDTO.answerDTO.sourcecode}">
+							<c:if test="${boardDTO.answerDTO.sourcecode != null}">
 								<div class="attached-code">
 							<wc-codemirror mode="text/x-java"
 										   theme="tomorrow-night-eighties"
@@ -66,13 +70,15 @@ ${boardDTO.answerDTO.sourcecode}
 								</div>
 							</c:if>
 							</c:catch>
-	                      <p>${boardDTO.board_Contents}</p>
+
+						 <br>
+						 <h6>${boardDTO.board_Contents}</h6>
 	                      
 	          				<form id="contactForm" action="delete" method="post" enctype="multipart/form-data">
 	                          <div class="main-border-button">
 	                     		<c:if test="${boardDTO.member_ID eq member.member_ID}">
-		                            <a href="./update?board_Num=${boardDTO.board_Num}">Update</a>
-		                            <a id="delete" href="#">Delete</a>
+		                            <a href="./update?board_Num=${boardDTO.board_Num}">Update</a><br>
+		                            <button type="button" id="delete" data-board_Num="${boardDTO.board_Num}">Delete</button>
 	                     		</c:if>
 	                          </div>
 	                          <input type="hidden" name="board_Num" value="${boardDTO.board_Num}">
@@ -87,16 +93,15 @@ ${boardDTO.answerDTO.sourcecode}
           </div>
           
           
-          <!-- reply -->
-          
+          <!-- reply -->    
 		  <c:if test="${b eq 'QnA'}">
 			<div class="row" style="margin-top:30px">
 			<div class="col-lg-12">
-				<div class="main-profile ">
+				<div class="main-profile">
 				<div class="row">
 				
-					<div class="col-lg-12">
-					<div class="main-info">
+					<div class="col-12 align-self-center">
+	                    <div class="main-info header-text">
 						<span>댓글</span>
 						
 						<!-- reply list -->
@@ -109,7 +114,7 @@ ${boardDTO.answerDTO.sourcecode}
 							<input type="hidden" name="user_Name" value="${member.member_ID}">
 							<div class="col-lg-12">
 							<ul id="addForm">
-								<li>${r.reply_Contents}<span>${member.member_Nick}</span></li>
+								<li>${r.reply_Contents}<span>@ ${r.member_Nick}</span></li>
 							</ul>
 							</div>
 							
@@ -118,15 +123,15 @@ ${boardDTO.answerDTO.sourcecode}
 						
 							
 						<form id="contactForm2" action="/reply/delete" method="POST" enctype="application/x-www-form-urlencoded;charset=utf-8">
-							
+							<div class="main-border-button">
  							<c:if test="${r.user_Name eq member.member_ID}">
  							<c:if test="${not empty member}">
-								<button type="button" class="float-end delete2 btn btn-cuiz" data-reply_Num="${r.reply_Num}">Delete</button>
+								<button type="button" class="float-end delete2 btn" data-reply_Num="${r.reply_Num}">Delete</button>
 							</c:if>
  							</c:if>
  							<input type="hidden" name="reply_Num" value="${r.reply_Num}">
  							<input type="hidden" name="board_Num" value="${boardDTO.board_Num}">
- 							
+ 							</div>
  							<div><br><br><br><br></div>
 						</form>
 						
@@ -223,6 +228,7 @@ ${boardDTO.answerDTO.sourcecode}
   <c:import url="../temps/footer.jsp"></c:import>
 
   </body>
+
  <script type="module" src="https://cdn.jsdelivr.net/gh/vanillawc/wc-codemirror@1/index.js"></script>
  <script type="module" src="https://cdn.jsdelivr.net/gh/vanillawc/wc-codemirror@1/mode/clike/clike.js"></script>
  <link rel="stylesheet"

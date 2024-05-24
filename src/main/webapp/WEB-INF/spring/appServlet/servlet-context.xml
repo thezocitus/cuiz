@@ -38,19 +38,22 @@
 		</interceptor>
 		
 		<interceptor>
-			<mapping path="/member/mypage"/>
+			<mapping path="/mypage/profile"/>
 			<mapping path="/member/update"/>
 			<mapping path="/quiz/list"/>
 			<mapping path="/quiz/solve"/>
+			<mapping path="/purchase/*"/>
 			<beans:ref bean="memberInterceptor"/>
 		</interceptor>
+		
+		
 		
 	</interceptors>
 	
 	<task:scheduled-tasks scheduler="scheduler">
         <task:scheduled ref="testSchedule" method="testPrint" cron="*/2 * * * * ?"/>
     	<task:scheduled ref="userDelete" method="setDelete" cron ="0 */30 * * * ?"/>
-    	<task:scheduled ref="rankingList" method="daily_Ranking" cron="0 * 13 * * ?"/>
+    	<task:scheduled ref="rankingList" method="daily_Ranking" cron="0 0 13 * * ?"/>
     </task:scheduled-tasks>
 	
 	<task:scheduler id="scheduler" pool-size="10"/>
