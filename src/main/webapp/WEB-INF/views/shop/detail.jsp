@@ -66,7 +66,11 @@
                   </div> 
                     <div class="col-lg-12">
                       <p> ${dto.item_Contents}</p>
+                  	  <span id="itemPrice"></span>
+                  	  <input type="hidden" id=memCoin value="${dto.item_Price}">
+                	  <input type="hidden" id=item_Name value="${dto.item_Name}">
                     <div class="col-lg-8">
+                    
                       	<form id="delBtnFrm">
                       		<input type="hidden" id="item_Num" name="item_Num" value="${dto.item_Num}">
 	                      <div class="main-border-button">

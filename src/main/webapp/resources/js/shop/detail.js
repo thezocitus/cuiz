@@ -5,12 +5,21 @@ const updBtnFrm = document.getElementById("updBtnFrm");
 const adCartBtn = document.getElementById("adCartBtn");
 const buyNowBtn = document.getElementById("buyNowBtn");
 const kakaopBtn = document.getElementById("kakaopBtn");
-let itemPrice = document.getElementById("item_Price")
+const itemPrice = document.getElementById("itemPrice");
 
-let icon = '<i class="fa-solid fa-coins"></i>'
+let icon = '<i class="fa-solid fa-coins"></i>';
 let memCoin = document.getElementById("memCoin");
-parseInt(memCoin.value).toLocaleString('ko-KR');    
-itemPrice.innerHTML=icon+parseInt(memCoin.value).toLocaleString('ko-KR');
+let meme = parseInt(memCoin.value).toLocaleString('ko-KR');  
+window.addEventListener('DOMContentLoaded', function(){
+
+
+let tempHtml= icon + meme;
+console.log(tempHtml);  
+
+itemPrice.innerHTML+=tempHtml;
+
+
+});
 
 
 
